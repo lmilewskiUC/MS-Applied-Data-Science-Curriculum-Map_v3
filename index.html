@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Applied Data Science — Curriculum Map</title>
+<style>
+  /* Base Reset & Variables */
+  :root {
+    --primary: #1a1a1a;
+    --accent: #800000;
+    --bg: #f5f4f0;
+    --card-bg: #ffffff;
+    --border: #e0dfd8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--primary); padding: 2rem 1rem; line-height: 1.5; }
+
+  /* Header & Toolbar */
+  .page-header { max-width: 1100px; margin: 0 auto 2rem; }
+  .page-header h1 { font-size: 24px; font-weight: 700; }
+  
+  .toolbar { max-width: 1100px; margin: 0 auto 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  
+  /* Topic Search Styling */
+  .search-container { position: relative; max-width: 500px; }
+  .topic-select { 
+    width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid #d0cfc8; 
+    appearance: none; background: #fff; font-size: 14px; cursor: pointer;
+  }
+  
+  .active-topic-banner {
+    display: none; align-items: center; gap: 10px; padding: 10px 15px; 
+    background: var(--accent); color: white; border-radius: 8px; font-size: 13px; font-weight: 600;
+  }
+  .active-topic-banner.show { display: flex; }
+  .clear-btn { background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+
+  /* Grid & Cards */
+  .semester-grid { max-width: 1100px; margin: 0 auto; }
+  .semester-block { margin-bottom: 3rem; }
+  .semester-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .semester-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #888; }
+  .semester-line { flex: 1; height: 1px; background: #ddd; }
+  
+  .course-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; }
+  
+ .course-card { 
+  background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; 
+  transition: all 0.2s; position: relative; display: flex; flex-direction: column;
+  border-top: 4px solid var(--cat-color, #ccc);
+ }
+  .course-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+  .course-code { font-size: 11px; font-weight: 700; color: #888; margin-bottom: 4px; }
+  .course-name { font-size: 15px; font-weight: 600; margin-bottom: 12px; flex-grow: 1; }
+
+  /* Clickable Topics */
+  .topic-tag-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+  .topic-tag { 
+    font-size: 10px; padding: 3px 8px; background: #eee; border-radius: 4px; 
+    cursor: pointer; color: #555; font-weight: 600; transition: background 0.2s;
+  }
+  .topic-tag:hover { background: var(--accent); color: #fff; }
+
+  /* Modal */
+  .modal-overlay { 
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); 
+    backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; 
+  }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #fff; width: 90%; max-width: 600px; border-radius: 16px; max-height: 85vh; overflow-y: auto; padding: 30px; }
+  .modal-header { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+  .section-title { font-size: 11px; font-weight: 800; color: #aaa; text-transform: uppercase; margin: 20px 0 10px; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Applied Data Science Map</h1>
+  <p>Select a topic to find related courses across the curriculum.</p>
+  <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;">
+    <span style="font-size:11px; font-weight:800; text-transform:uppercase; color:#888; align-self:center;">Categories:</span>
+    <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; background:#80000020; color:#800000; border:1px solid #80000040;">Core</span>
+    <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; background:#EAAA0020; color:#7a5800; border:1px solid #EAAA0060;">Elective – AI</span>
+    <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; background:#EAAA0020; color:#7a5800; border:1px solid #EAAA0060;">Elective – Industry Verticals</span>
+    <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; background:#EAAA0020; color:#7a5800; border:1px solid #EAAA0060;">Elective – Scalability Engineering</span>
+    <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; background:#DE7C0020; color:#DE7C00; border:1px solid #DE7C0040;">Capstone</span>
+    <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; background:#59315F20; color:#59315F; border:1px solid #59315F40;">Thesis</span>
+    <span style="font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; background:#00739620; color:#007396; border:1px solid #00739640;">Career Seminar</span>
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="search-container">
+    <select id="globalTopicSelector" class="topic-select">
+      <option value="">Search by preset topic...</option>
+      </select>
+  </div>
+
+  <div id="activeFilterBanner" class="active-topic-banner">
+    Showing courses with topic: <span id="currentTopicName"></span>
+    <button class="clear-btn" onclick="clearTopicFilter()">Clear Filter</button>
+  </div>
+</div>
+
+<div id="semesterGrid" class="semester-grid"></div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div id="modalContent"></div>
+    <button onclick="closeModal()" style="margin-top: 20px; padding: 8px 16px; cursor: pointer;">Close</button>
+  </div>
+</div>
+
+<script>
+/** * 1. PRESET TOPIC LIST 
+ * This ensures consistency across instructors.
+ */
+const TOPIC_REGISTRY = [
+  "Python", "SQL", "Bayesian Statistics", "Machine Learning", 
+  "Deep Learning", "Data Ethics", "Cloud Computing", "Visualization",
+  "Feature Engineering", "Natural Language Processing", "Big Data", 
+  "Linear Algebra","GenAI","Computer Vision", "LLMs", "Business Analytics", 
+  "Career","Statistics"
+];
+
+const CATEGORIES = {
+  core:        { label: 'Core',                            color: '#800000' },
+  elective_ai: { label: 'Elective – AI',                  color: '#EAAA00' },
+  elective_iv: { label: 'Elective – Industry Verticals',  color: '#EAAA00' },
+  elective_se: { label: 'Elective – Scalability Engineering', color: '#EAAA00' },
+  capstone:    { label: 'Capstone',                        color: '#DE7C00' },
+  thesis:      { label: 'Thesis',                          color: '#59315F' },
+  seminar:     { label: 'Career Seminar',                  color: '#007396' }
+};
+
+// Ordered list of category keys for display
+const CATEGORY_ORDER = ['core','elective_ai','elective_iv','elective_se','capstone','thesis','seminar'];
+
+const COURSES = [
+   { 
+    code: "ADSP 31006", name: "Time Series Analysis and Forecasting", semester: "Winter Year 1", cat: "core",
+    desc: `Time Series Analysis is a science as well as the art of making rational predictions based on previous records. It is widely used in various fields in today's business settings. For example, airline companies employ time series to predict traffic volume and schedule flights; financial agencies measure market risk via stock price series; marketing analysts study the impact of a newly proposed advertisement by the sales series. A comprehensive knowledge of time series analysis is essential to the modern data scientist/analyst. This course covers important issues in applied time series analysis: a solid knowledge of time series models and their theoretical properties; how to analyze time series data by using mainstream statistical software; practical experience in real data analysis and presentation of their findings in a logical and clear way to various audiences.`,
+    outcomes: ["XYZ",
+    "ABC",
+    "DEF"],
+    topics: ["Statistics"],
+    prereqs: ["ADSP 31007", "ADSP 31014"]
+  },
+  { 
+    code: "ADSP 31012", name: "Data Engineering Platforms for Analytics", semester: "Spring Year 1", cat: "core",
+    desc: `Data is at the heart of data science and AI, business intelligence, and advanced analytics as intelligent, data-driven applications and solutions have become the norm. Data engineering is an essential firststep in building a data-driven enterprise with competitive advantage in the market. Modern data and analytics platforms reduce manual data preparation by automating data curation processes, churning and analyzing internet scale data from disparate sources and presenting contextual and actionable information. The self-service platform enables leadership to make informed business decisions by developing impactful data-driven insights. Data stores for storing large contextual information is everywhere, even though we may not recognize them in our everyday activities. They are hidden behind your online banking profile, airline reservation systems, point of sale systems, medical records, and even employment records. Data is collected, ingested, curated, transformed and stored to include historical information, as well as new data isgathered as it is generated, enabling stakeholders to drive both strategic and tactical decision-making processes. Benefits of storing data includes optimizing internal business processes, accelerating andimproving decision-making, increasing operational efficiency, driving new revenue to gain competitive advantage.`,
+    outcomes: ["XYZ",
+    "ABC",
+    "DEF"],
+    topics: ["Python", "SQL"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 31013", name: "Big Data Platforms & Cloud Computing", semester: "Spring Year 1", cat: "core",
+    desc: `This course teaches students how to approach Big Data and large-scale machine learning applications. While there is no single definition of Big Data and multiple emerging software packages exist to work with Big Data, we will cover the most popular approaches. Students will learn the Big Data infrastructure, including Linux, Massive parallelization and Distributed Computing, and how to apply both Hadoop and Spark map-reduce concepts for clustering, similarity search, web analytics and classification. During the course, we will cover the applications of NoSQL systems, such as JSON stores, object storage and Elasticsearch. The cloud computing section of the course will focus on virtualization and container orchestration, including virtual machines, dockers and Kubernetes. During the course students will gain hands-on expertise leveraging Hive, Pig, Python and PySpark for Big Data applications in client-server environment. For MScA students in the 12-course curriculum who wish to take Big Data Platforms as a core course, instead of MSCA 31012 Data Engineering Platforms: Certain technical skills and knowledge are required to be successful in this course. Required skills may be found for MSCA 31013 Big Data Platforms at https://professional.uchicago.edu/find-your-fit/masters/master-science-analytics/curriculum. Contact the program administration for further details.`,
+    topics: ["Python", "Big Data","Machine Learning", "Cloud Computing"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 31014", name: "Statistical Models for Data Science", semester: "Autumn Year 1", cat: "core",
+    desc: `In a traditional linear model, the observed response follows a normal distribution, and the expected response value is a linear combination of the predictors. New methods based on probability distributions other than Gaussian appeared only in the second half of the twentieth century. These methods allowed working with variables that span a broader variety of domains and probability distributions. Besides, methods for the analysis of general associations were developed that are different from the Pearson correlation. This course begins in linear normal models. We will visit the foundations of generalized linear models (GLM) and take a detour to see the survival models. This journey ends at some nonlinear model lookout posts at the instructor's discretion. This course will prepare students to be ready for and capable of the statistical analysis process. Students will first discover the insights, formulate the propositions, validate the evidence, and finally build the solutions for solving business problems. Following the process properly raises credibility and increases the impact of the results. Besides developing Python codes for carrying out the process, students will learn to tune the software tools for the most efficient implementation and optimal performance. At the end of this course, students will have built their inventory of data analysis codes and their confidence in advocating their propositions to the business stakeholders.`,
+    topics: ["Statistics"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 31016", name: "Leadership and Consulting for Data Science", semester: "Autumn Year 1", cat: "core",
+    desc: `Professional organizations see value in data science when it helps them to achieve their strategic goals, and the current job market likewise rewards data scientists who can use data to advance organizational interests, either as an external consultant or within internal operations teams. Data scientists can become successful (and highly marketable) leaders in today's professional world, but they require an uncommon skill set: the strategic awareness to align data requirements with business requirements, the technical proficiency to choose a methodology appropriate to each new problem, and the communication skills to both execute the plan as part of a broader team and persuade others of their findings. The Leadership and Consulting in Data Scientist course is focused on: • Learning techniques and proven methods to effectively grasp the business domain including organizational dynamics of consultancies and client organizations • Developing relevant solutions to enterprise problems using the sampling methods, traditional statistical techniques and modern machine learning models that deliver value to the organization • Practicing successful project delivery through effective data discovery, influential team membership and leadership, project management, and communication at every stage This course will not only make you a better data scientist; it will make you and your analyses more approachable, more persuasive, and ultimately more successful.`,
+    topics: ["Data Ethics", "Career"],
+    prereqs: []
+  },
+    { 
+    code: "ADSP 31017", name: "Machine Learning I", semester: "Winter Year 1", cat: "core",
+    desc: `This course is aimed at providing students an introduction to machine learning with data mining techniques and algorithms. It gives a rigorous methodological foundation in analytical and software tools to successfully undertake projects in Data Science. Students are exposed to concepts of exploratory analyses for uncovering and detecting patterns in multivariate data, hypothesizing and detecting relationships among variables, conducting confirmatory analyses, and building models for predictive and descriptive purposes. It will present predictive modeling in the context of balancing predictive and descriptive accuracies.`,
+    topics: ["Machine Learning"],
+    prereqs: ["ADSP 31007", "ADSP 31014"]
+  },
+  { 
+    code: "ADSP 31018", name: "Machine Learning II", semester: "Spring Year 1", cat: "core",
+    desc: `The objective of this course is three-folds - first, to extend student understanding of predictive modeling with machine learning concepts and methodologies from Machine Learning 1 into the realm of Deep Learning and Generative AI. Second, to develop the ability to apply those concepts and methodologies to diverse practical applications, evaluate the results and recommend the next best action. Third, to discuss and understand state-of-the machine learning and deep learning research and development and their applications. This course clarifies concepts such as Artificial Intelligence, Machine Learning and Deep Learning and distinguishes between Expert and Learning systems. It introduces different types of learning systems such as error-based, information-based, representation, active, and generative modeling. The course expands on recommender systems and regularized regression from Machine Learning 1 using different types of data encoding for learning systems. Additional topics include model selection, fairness, and ethics. Students learn state-of-the-art machine and deep learning applications in the industry along with their pros and cons via case studies, assignments, and a class project. The course is taught in Python. The class covers popular machine learning library APIs and implementations using examples from public github repositories.`,
+    topics: ["Machine Learning", "Python", "Deep Learning"],
+    prereqs: ["ADSP 31008","ADSP 31017"]
+  },
+   { 
+    code: "ADSP 32001", name: `Quantitative Finance: Methods and Applications`, semester: "Winter Year 1", cat: "elective_iv",
+    desc: `This course provides students with an introduction to quantitative finance, covering financial institutions, markets, instruments, and core investment concepts. Students will learn to apply quantitative finance and data science techniques to develop and evaluate investment strategies using real-world financial data. The course delves into well-established methods from academia and industry, applying traditional statistical and machine learning approaches, along with optimization techniques, to signal construction and quantitative investing.`,
+    topics: [],
+    prereqs: ["ADSP 31007", "ADSP 31014"]
+  },
+  { 
+    code: "ADSP 32007", name: "Data Visualization Techniques", semester: "Winter Year 1", cat: "elective_se",
+    desc: `In today's data driven enterprise, data storytelling using effective visualization strategies is an essential skill for analytics practitioners in almost every field to explore and present data. This course focuses on modern data visualization technologies, tools, and techniques to convert raw data into actionable information. Modern data visualization tools are at the forefront of the "self-service analytics" architectures which are decentralizing analytics and breaking down IT bottlenecks for business experts. Moreover, with its foundations rooted in statistics, psychology, and computer science, data visualization shows you how to better understand the data, present clear evidence of your findings to your intended audience and tell engaging data stories through charts and graphics. This course is designed to introduce data visualization as a medium of effective communication using strategic storytelling, and the basis for interactive information dashboards.`,
+    topics: [],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 32009", name: "Data Science for Healthcare", semester: "Spring Year 1", cat: "elective_iv",
+    desc: `Given the breadth of the field of health analytics, this course will provide an overview of the development and rapid expansion of analytics in healthcare, major and emerging topical areas, and current issues related to research methods to improve human health. We will cover such topics as security concerns unique to the field, research design strategies, and the integration of epidemiologic and quality improvement methodologies to operationalize data for continuous improvement. Students will be introduced to the application of predictive analytics to healthcare. Students will understand factors impacting the delivery of quality and safe patient care and the application of data-driven methods to improve care at the healthcare system level, design approaches to answering a research question at the population level, become familiar with the application of data analytics to impacting care at the provider level through Clinical Decision Systems, and understand the process of a Clinical Trail.`,
+    topics: ["Machine Learning", "Python", "Deep Learning"],
+    prereqs: ["ADSP 31008","ADSP 31017"]
+  },
+  { 
+    code: "ADSP 32014", name: "Bayesian Machine Learning with Generative AI Applications", semester: "Spring Year 1", cat: "elective_ai",
+    desc: `This course provides a strong theoretical and practical skillset for probabilistic machine learning applications. Bayesian inference and modeling methods are important for several areas including prediction, decision making, and risk assessment where modeling the uncertainty is needed. The course begins with an introduction to Bayesian statistical analysis, covering the foundations of Bayesian inference and the application of Bayes' theorem for statistical inference. We then introduce Bayesian networks, which offer a powerful graphical tool for modeling complex systems and making probabilistic inferences. The course then advances to cover more sophisticated topics such as Markov Chain Monte Carlo (MCMC) methods for sampling from complex probability distributions, hierarchical models, and model selection techniques. The final three weeks are dedicated to cutting-edge methodologies like Generative Deep Learning, Variational Autoencoders, and Bayesian Neural Networks, all rooted in Bayesian Machine Learning. Upon completion, students will be equipped to apply Bayesian methods to a wide range of real-world problems in fields such as engineering, business, finance, and public policy, addressing challenges like missing data or training AI models that are able to say 'I don't know'.`,
+    topics: ["Bayesian Statistics", "Machine Learning", "GenAI"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 32018", name: `Next-Gen NLP: LLM and AgenticAI in Practice`, semester: "Spring Year 1", cat: "elective_ai",
+    desc: `Extracting actionable insights from unstructured text and designing cognitive applications remains crucial to applied data science. Students in this course will learn the foundations of natural language processing, including text preprocessing techniques such as text normalization, lemmatization, stemming, and regex. The course will cover supervised learning methods like text classification using n-grams, TF-IDF vectorization, and sentiment analysis, as well as unsupervised approaches like topic modeling (LDA, NMF, BERTopic) and paraphrase mining. Neural network-based NLP techniques will be introduced, covering distributional similarity, word embeddings (Word2Vec, FastText, GloVe), and deep learning architectures, including CNNs, LSTMs, GRUs, and transformer-based models such as BERT and ModernBERT. Students will explore question-answering systems, integrating extractive methods (SQuAD) and generative techniques (T5, BART). Advanced topics will include instruction-tuned large language models (ChatGPT, DeepSeek), reinforcement learning (RLHF, PPO), retrieval-augmented generation, and agentic AI. The course will provide hands-on experience in Python-based text analysis and practical applications using modern NLP frameworks, including transformer-based models and retrieval systems.`,
+    topics: ["GenAI", "Natural Language Processing"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 32019", name: "Real-Time Intelligent Systems", semester: "Winter Year 1", cat: "elective_ai",
+    desc: `Developing end-to-end automation and intelligent systems is now the most advanced area of application for analytics. Building such systems requires proficiency in programming, understanding of computer systems, as well as knowledge of related analytical methodologies, which are the skills that this course aims to teach to students. The course focuses on python and is tailored for students with basic programming knowledge in Python. The course is partially project based. During the first three sessions, we will review basic python concepts and then learn more advanced python and the ways to use Python to handle large data flows. The later sessions are project based and will focus on developing end-to-end analytical solutions in the following areas: Finance and trading, blockchains and crypto-currencies, image recognition, and video surveillance systems.`,
+    topics: [],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 32020", name: "Deep Reinforcement Learning", semester: "Spring Year 1", cat: "elective_ai",
+    desc: `Extracting actionable insights from unstructured text and designing cognitive applications remains crucial to applied data science. Students in this course will learn the foundations of natural language processing, including text preprocessing techniques such as text normalization, lemmatization, stemming, and regex. The course will cover supervised learning methods like text classification using n-grams, TF-IDF vectorization, and sentiment analysis, as well as unsupervised approaches like topic modeling (LDA, NMF, BERTopic) and paraphrase mining. Neural network-based NLP techniques will be introduced, covering distributional similarity, word embeddings (Word2Vec, FastText, GloVe), and deep learning architectures, including CNNs, LSTMs, GRUs, and transformer-based models such as BERT and ModernBERT. Students will explore question-answering systems, integrating extractive methods (SQuAD) and generative techniques (T5, BART). Advanced topics will include instruction-tuned large language models (ChatGPT, DeepSeek), reinforcement learning (RLHF, PPO), retrieval-augmented generation, and agentic AI. The course will provide hands-on experience in Python-based text analysis and practical applications using modern NLP frameworks, including transformer-based models and retrieval systems.`,
+    topics: ["Natural Language Processing"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 32021", name: "Machine Learning Operations", semester: "Spring Year 1", cat: "elective_ai",
+    desc: `The objective of this course is two-folds - first, to understand what Machine Learning Operations (MLOps) is and why it is a key component in enterprise production deployment of machine learning projects. Second, to expose students to software engineering, model engineering and state-of-the-art deployment engineering with hands-on platform and tools experience. This course crosses the chasm that separates machine learning projects/experiments and enterprise production deployment. It covers 3 pillars in MLOps: software engineering such as software architecture, Continuous Integration/Continuous Delivery and data versioning; model engineering such as AutoML and A/B experimentation; and deployment engineering such as docker containers and model monitoring. The course focuses on best practices in the industry that are critical to enterprise production deployment of machine learning projects. Having completed this course, a student understands the machine learning lifecycle and what it takes to go from ideation to operationalization in an enterprise environment. Furthermore, students get exposure to state-of-the-art MLOps platforms such as allegro (https://allegro.ai/), xpresso https://abzooba.com/xpresso-ai), Dataiku (https://www.dataiku.com/), LityxIQ (https://lityx.com/), DataRobot (https://www.datarobot.com/), AWS Sagemaker (https://aws.amazon.com/sagemaker/), and technologies such as gitHub, Jenkins, slack, docker, and kubernetes.`,
+    topics: ["Machine Learning"],
+    prereqs: ["ADSP 31008", "ADSP 31017", "ADSP 31012", "ADSP 31013"]
+  },
+  { 
+    code: "ADSP 32023", name: "Advanced Computer Vision with Deep Learning", semester: "Spring Year 1", cat: "elective_ai",
+    desc: `Computer vision is the field of computer science that focuses on creating digital systems that can process, analyze, and make sense of visual data in the same way that humans do. Deep learning is a subset of machine learning and a branch of Artificial Intelligence (AI). It involves the training, deployment, and application of large complex neural network architectures to solve cutting-edge problems. Deep Learning has become the primary approach for solving cognitive problems such as Computer Vision and Natural Language Processing (NLP) and has had a massive impact on various industries such as healthcare, retail, automotive, industrial automation, and agriculture. This course will enable students to build Deep Learning models and apply them to computer vision tasks such as object recognition, detection, and segmentation. Students will gain an in-depth understanding of the Deep Learning model development process, tools, and frameworks. Although the focus of the course will primarily be computer vision, students will work on both image and nonimage datasets during class exercises and assignments. Students will gain hands-on experience in popular libraries such as Tensorflow, Keras, and PyTorch. Students will also learn to apply state of the art models such as ResNet, EfficientNet, RCNNs, YOLO, Vision Transformers, etc. for computer vision and work on datasets such as CIFAR, ImageNet, MS COCO, and MPII Human Poses.`,
+    topics: ["Computer Vision", "Deep Learning"],
+    prereqs: ["ADSP 31008", "ADSP 31017"]
+  },
+  { 
+    code: "ADSP 32024", name: "Data Science for Algorithmic Marketing", semester: "Winter Year 1", cat: "elective_iv",
+    desc: `This course focuses on marketing science methods and algorithms. The course will expose and immerse students in the marketing science algorithms. The course would cover algorithms for undertaking competitive analysis in the digital landscape, market segmentation, mining databases for effective digital marketing, design of new digital and traditional products, forecasting sales and product diffusion, real time product positioning, intra omni-channel optimization and inter omni-channel resource allocation, and pricing across both omni-channel marketing effectiveness and ROI. The course will use a combination of lecture, in-class discussions, group assignments, and a final group project. The course lays special emphasis on algorithms. Hence it draws heavily from the fields of optimization, machine-learning based recommendation systems, association rules, consumer choice models, Bayesian estimation, experimentation and analysis of covariance, advanced visualization techniques for mapping brand perceptions, and analysis of social media data using advanced NLP techniques.`,
+    topics: [],
+    prereqs: ["ADSP 31007", "ADSP 31014"]
+  },
+  { 
+    code: "ADSP 32025", name: "Supply Chain Optimization", semester: "Winter Year 1", cat: "elective_iv",
+    desc: `"Big Data" continues to grow exponentially in our large-scale transactional world where 100,000s of SKUs and millions of customers are interacting with 1:1 offers that include differential pricing, shipping timing/costs and even made to order "custom" product configurations. These consumer behaviors are quickly advancing the availability of new data and techniques within the discipline of Data Science. This elective course will give students the opportunity to apply their skills in data visualization, data mining tools, predictive modeling, and advanced optimization techniques to address Supply Chain challenges. The course focuses on the use of Advanced Predictive Modeling, Machine Learning, AI and other Data Science insight and activation tools are to automate and optimize the performance of the Supply Chain. Students will also learn how to optimize the performance of the Supply Chain from the lens of multiple related disciplines including: Sales Forecasting, Warehousing/Inventory Management, Promotion, Pricing, Logistics Network Optimization, Freight Cost Management, Manufacturing, Retail POS Information, Ecommerce, Consumer Data, and Product Design/Packaging. After completing this course, you will be prepared to work in any of the numerous specialty areas possible in the world of Supply Chain Management.`,
+    topics: ["Big Data"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 32026", name: "Python for ML Engineering", semester: "Spring Year 1", cat: "elective_se",
+    desc: `This course prepares data science students to go beyond programming constructs and data science libraries. This courses provides an understanding of web applications so students can get a deeper understand of how their models are deployed. They are taught python environment management, required for production work. They are taught advanced data structures such as trees and graphs to allow them to work with more complex modes and more advanced control structures, such as generators a recursive functions to help them write more expressive code.`,
+    topics: ["Python", "Machine Learning"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 32027", name: "Generative AI I: Principles & Applications", semester: "Spring Year 1", cat: "elective_ai",
+    desc: `This course dives into the realm of Generative AI, offering a comprehensive look into the world of Large Language Models (LLMs), image generation techniques, and the fusion of vision and text through multimodal models. Drawing from core concepts in neural networks, transformers, and advanced techniques such as prompt engineering, vision prompting, and multimodality representation, students will explore the capabilities, applications, and ethical considerations of generative models. This course culminates in hands-on projects, allowing participants to apply theory to practical scenarios.`,
+    topics: ["GenAI", "LLMs"],
+    prereqs: ["ADSP 31009", "ADSP 31017"]
+  },
+  { 
+    code: "ADSP 32029", name: "Causal Models for Data Science", semester: "Spring Year 1", cat: "elective_ai",
+    desc: `This course is designed to equip students with the knowledge and skills to perform causal inference with machine learning. Students learn practical skills for designing and analyzing experiments. The course begins with a quick overview of the basics of correlational and cross-sectional analytical techniques. It then introduces the importance of randomization in explainability and causal inference. The issues of bias in observational studies are examined. Students use AI/ML models to quantify randomization errors and correct violations of non-randomization. Finally, counterfactuals for individual predictions are examined.`,
+    topics: ["Machine Learning"],
+    prereqs: ["ADSP 31014","ADSP 31017"]
+  },
+  { 
+    code: "ADSP 34002", name: "Capstone I", semester: "Spring Year 1", cat: "capstone",
+    desc: `The overarching goal of this course is to take students two steps closer to being "Complete Data Scientists". The first step is by letting students manage and solve a real data science project with real clients and real problems. Students will complete the design of their Capstone Projects, and begin the implementation. The second step is by exposing them to data science methodologies in the absence of pre-existing data - by exposing them to quantitative methodologies in optimally designing data collection tasks. This course covers the Business analytic process from the translation of business problems and opportunities into questions that can be addressed by using data science, development of analytical plans including methodologies and data to address these issues, and initial implementation of these analytical plan.`,
+    topics: ["Data Ethics", "Business Analytics"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 34003", name: "Capstone II", semester: "Winter Year 1", cat: "capstone",
+    desc: `The Capstone II class is designed to: 1) Provide students maximum flexibility in the latter stages of their Capstone project to work heavily with their Capstone advisors in concluding the execution of the analytic methodology and any client / sponsor deliverables for the project. 2) Provide maximum support to students in the curation and delivery of key project communications: a) Formal research paper. b) Formal business presentation of project details, value, findings and recommendations. c) Live presentation by the team in Capstone Showcase including question / answer session with a judging panel.`,
+    topics: ["Career"],
+    prereqs: ["ADSP 34002"]
+  },
+  { 
+    code: "ADSP 37025", name: "MS in Applied Data Science Career Seminar I", semester: "Autumn Year 1", cat: "seminar",
+    desc: `This course will help you navigate your career in data science and land a job that fits your needs and desires. It will lead you through a deeper discovery into who you are, clarifying what you want to do with your career, and navigating the market to find the right company and job match. This noncredit, 4 course sequence is required for all students. Students with extensive work experience, may be eligible to waive this course.`,
+    topics: ["Career"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 37026", name: "MS in Applied Data Science Career Seminar II", semester: "Winter Year 1", cat: "seminar",
+    desc: `This course will help you navigate your career in data science and land a job that fits your needs and desires. It will lead you through a deeper discovery into who you are, clarifying what you want to do with your career, and navigating the market to find the right company and job match. This noncredit, 4 course sequence is required for all students. Students with extensive work experience, may be eligible to waive this course.`,
+    topics: ["Career"],
+    prereqs: ["ADSP 37025"]
+  },
+  { 
+    code: "ADSP 37027", name: "MS in Applied Data Science Career Seminar III", semester: "Spring Year 1", cat: "seminar",
+    desc: `This course will help you navigate your career in data science and land a job that fits your needs and desires. It will lead you through a deeper discovery into who you are, clarifying what you want to do with your career, and navigating the market to find the right company and job match. This noncredit, 4 course sequence is required for all students. Students with extensive work experience, may be eligible to waive this course.`,
+    topics: ["Career"],
+    prereqs: ["ADSP 37026"]
+  },
+  { 
+    code: "ADSP 37028", name: "MS in Applied Data Science Career Seminar IV", semester: "Autumn Year 2", cat: "seminar",
+    desc: `This course will help you navigate your career in data science and land a job that fits your needs and desires. It will lead you through a deeper discovery into who you are, clarifying what you want to do with your career, and navigating the market to find the right company and job match. This noncredit, 4 course sequence is required for all students. Students with extensive work experience, may be eligible to waive this course.`,
+    topics: ["Career"],
+    prereqs: ["ADSP 37027"]
+  }
+];
+
+let activeTopic = "";
+
+function init() {
+  populateTopicSelector();
+  renderGrid();
+  
+  // Handle Selector Change
+  document.getElementById('globalTopicSelector').addEventListener('change', (e) => {
+    filterByTopic(e.target.value);
+  });
+}
+
+function populateTopicSelector() {
+  const select = document.getElementById('globalTopicSelector');
+  TOPIC_REGISTRY.sort().forEach(topic => {
+    const opt = document.createElement('option');
+    opt.value = topic;
+    opt.textContent = topic;
+    select.appendChild(opt);
+  });
+}
+
+function filterByTopic(topic) {
+  activeTopic = topic;
+  const banner = document.getElementById('activeFilterBanner');
+  const nameSpan = document.getElementById('currentTopicName');
+  
+  if (topic) {
+    banner.classList.add('show');
+    nameSpan.textContent = topic;
+    document.getElementById('globalTopicSelector').value = topic;
+  } else {
+    banner.classList.remove('show');
+    document.getElementById('globalTopicSelector').value = "";
+  }
+  renderGrid();
+}
+
+function clearTopicFilter() {
+  filterByTopic("");
+}
+
+function renderGrid() {
+  const grid = document.getElementById('semesterGrid');
+  grid.innerHTML = '';
+
+  CATEGORY_ORDER.forEach(catKey => {
+    const cat = CATEGORIES[catKey];
+    const visible = COURSES.filter(c =>
+      c.cat === catKey &&
+      (activeTopic === "" || c.topics.includes(activeTopic))
+    );
+
+    if (visible.length === 0) return;
+
+    const block = document.createElement('div');
+    block.className = 'semester-block';
+    block.innerHTML = `
+      <div class="semester-header">
+        <span class="semester-label" style="color:${cat.color}">${cat.label}</span>
+        <div class="semester-line"></div>
+      </div>
+      <div class="course-row"></div>
+    `;
+
+    const row = block.querySelector('.course-row');
+    visible.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'course-card';
+      card.style.borderTop = `4px solid ${cat.color}`;
+
+      card.innerHTML = `
+        <div class="course-code">${c.code}</div>
+        <div class="course-name">${c.name}</div>
+          ${c.prereqs && c.prereqs.length > 0 ? `<div style="font-size:11px; color:#999; margin-bottom:4px;">Prereqs: ${c.prereqs.join(', ')}</div>` : ''}
+        <div class="topic-tag-list">
+          ${c.topics.map(t => `<span class="topic-tag" onclick="event.stopPropagation(); filterByTopic('${t}')">${t}</span>`).join('')}
+        </div>
+      `;
+      card.onclick = () => openModal(c);
+      row.appendChild(card);
+    });
+    grid.appendChild(block);
+  });
+}
+
+function openModal(c) {
+  const overlay = document.getElementById('modalOverlay');
+  const content = document.getElementById('modalContent');
+  content.innerHTML = `
+    <div class="modal-header">
+      <div class="course-code">${c.code}</div>
+      <h2>${c.name}</h2>
+    </div>
+    <p>${c.desc}</p>
+    ${c.prereqs && c.prereqs.length > 0 ? `
+    <div class="section-title">Prerequisites</div>
+    <p style="font-size:13px; color:#555;">${c.prereqs.join(', ')}</p>
+  ` : ''}
+    ${c.outcomes && c.outcomes.length > 0 ? `
+  <div class="section-title">Learning Outcomes</div>
+  <ul style="font-size:13px; color:#555; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 6px;">
+    ${c.outcomes.map(o => `<li>${o}</li>`).join('')}
+  </ul>
+` : ''}
+    <div class="section-title">Topic Mapping</div>
+    <div class="topic-tag-list">
+      ${c.topics.map(t => `<span class="topic-tag" style="font-size:12px; padding:6px 12px;" onclick="closeModal(); filterByTopic('${t}')">${t}</span>`).join('')}
+    </div>
+  `;
+  overlay.classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+init();
+</script>
+</body>
+</html>
