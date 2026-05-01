@@ -149,6 +149,13 @@ const COURSES = [
     prereqs: ["ADSP 31007", "ADSP 31014"]
   },
   { 
+    code: "ADSP 31011", name: "Cloud-Native Data Engineering", semester: "Autumn Year 2", cat: "Core",
+    desc: `This course provides a comprehensive, hands-on introduction to modern cloud-native data engineering. Students learn how to ingest, transform, model, and serve data across distributed cloud environments. Topics include APIs and data pipelines in Python, Linux and cloud foundations, SQL and relational modeling, data warehousing with Snowflake, lakehouse architectures with Databricks and Delta Lake, and distributed data processing with Spark. The course emphasizes cross-platform cloud design, exposing students to services and deployment patterns across the three major cloud providers: Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP). Students gain experience with containerization using Docker, orchestration with Kubernetes, CI/CD workflows with GitHub Actions, and cloud-based machine learning platforms. Through hands-on labs, students build production-grade pipelines and AI-ready data applications using modern data application frameworks and user interface design principles. A final project integrates engineering, infrastructure, and multi-cloud deployment best practices into a scalable, end-to-end data system.`,
+    outcomes: ["XYZ"],
+    topics: ["Cloud Computing"],
+    prereqs: []
+  },
+  { 
     code: "ADSP 31012", name: "Data Engineering Platforms for Analytics", semester: "Spring Year 1", cat: "core",
     desc: `Data is at the heart of data science and AI, business intelligence, and advanced analytics as intelligent, data-driven applications and solutions have become the norm. Data engineering is an essential firststep in building a data-driven enterprise with competitive advantage in the market. Modern data and analytics platforms reduce manual data preparation by automating data curation processes, churning and analyzing internet scale data from disparate sources and presenting contextual and actionable information. The self-service platform enables leadership to make informed business decisions by developing impactful data-driven insights. Data stores for storing large contextual information is everywhere, even though we may not recognize them in our everyday activities. They are hidden behind your online banking profile, airline reservation systems, point of sale systems, medical records, and even employment records. Data is collected, ingested, curated, transformed and stored to include historical information, as well as new data isgathered as it is generated, enabling stakeholders to drive both strategic and tactical decision-making processes. Benefits of storing data includes optimizing internal business processes, accelerating andimproving decision-making, increasing operational efficiency, driving new revenue to gain competitive advantage.`,
     outcomes: ["XYZ",
@@ -206,9 +213,31 @@ const COURSES = [
     prereqs: ["ADSP 31008","ADSP 31017"]
   },
   { 
+    code: "ADSP 32013", name: "Optimization and Simulation Methods for Data Science", semester: "Autumn Year 2", cat: "elective_ai",
+    desc: `This course introduces students to how optimization and simulation techniques can be used to solve many real-life problems. It will cover two classes of optimization methods. First class has been developed to optimize real, non- simulated systems or to find the optimal solution of a mathematical model. The methods that belong to this class include liner programming, quadratic programming and mixed-integer programming. Second class of methods has been developed to optimize a simulation model. The difference with the classical mathematical programming methods is that the objective function (which is the function to be minimized or maximized) is not known explicitly and is defined by the simulation model (computer code). The course will demonstrate multiple approaches to build simulation models, such as discrete event simulations and agent-based simulations. Then, it will show how stochastic optimization and heuristic approaches can be used to analyze the simulated system and design a sequence of computational experiments that allow to develop a basic understanding of a particular simulation model or system through exploration of the parameter space, to find robust plausible behaviors and conditions and robust near-optimal solutions that are not prone to being unstable under small perturbations.`,
+    outcomes: ["ZIZ"],
+    topics: ["", "", ""],
+    prereqs: ["ADSP 31007","ADSP 31014"]
+  },
+  { 
     code: "ADSP 32014", name: "Bayesian Machine Learning with Generative AI Applications", semester: "Spring Year 1", cat: "elective_ai",
     desc: `This course provides a strong theoretical and practical skillset for probabilistic machine learning applications. Bayesian inference and modeling methods are important for several areas including prediction, decision making, and risk assessment where modeling the uncertainty is needed. The course begins with an introduction to Bayesian statistical analysis, covering the foundations of Bayesian inference and the application of Bayes' theorem for statistical inference. We then introduce Bayesian networks, which offer a powerful graphical tool for modeling complex systems and making probabilistic inferences. The course then advances to cover more sophisticated topics such as Markov Chain Monte Carlo (MCMC) methods for sampling from complex probability distributions, hierarchical models, and model selection techniques. The final three weeks are dedicated to cutting-edge methodologies like Generative Deep Learning, Variational Autoencoders, and Bayesian Neural Networks, all rooted in Bayesian Machine Learning. Upon completion, students will be equipped to apply Bayesian methods to a wide range of real-world problems in fields such as engineering, business, finance, and public policy, addressing challenges like missing data or training AI models that are able to say 'I don't know'.`,
     topics: ["Bayesian Statistics", "Machine Learning", "GenAI"],
+    prereqs: []
+  },
+  { 
+    code: "ADSP 32017", name: "Advanced Machine Learning & Artificial Intelligence", semester: "Spring Year 1", cat: "elective_ai",
+    desc: `This course delves into advanced and evolving topics in machine learning, with a focus that may vary each semester. Students will engage in intensive programming projects, gaining hands-on experience with cutting-edge tools and techniques.
+
+For this semester, the course will emphasize two key areas: transformers and reinforcement learning. Students will explore the internals of transformer models, build a transformer from the ground up, and apply transformers to a range of tasks including NLP, time series analysis, and image processing.
+
+The course will involve extensive use of PyTorch, which we shall study, and TensorFlow, with a strong reliance on Hugging Face libraries, models, and datasets.
+
+Additionally, students will learn the fundamentals of reinforcement learning, working with environments such as OpenAI Gym and leveraging tf-agents to build and train RL models.
+
+This course is ideal for students seeking to deepen their understanding of advanced machine learning topics through practical, project-based learning.`,
+    outcomes: ["ZIZ"],
+    topics: ["Machine Learning"],
     prereqs: []
   },
   { 
@@ -270,6 +299,15 @@ const COURSES = [
     desc: `This course is designed to equip students with the knowledge and skills to perform causal inference with machine learning. Students learn practical skills for designing and analyzing experiments. The course begins with a quick overview of the basics of correlational and cross-sectional analytical techniques. It then introduces the importance of randomization in explainability and causal inference. The issues of bias in observational studies are examined. Students use AI/ML models to quantify randomization errors and correct violations of non-randomization. Finally, counterfactuals for individual predictions are examined.`,
     topics: ["Machine Learning"],
     prereqs: ["ADSP 31014","ADSP 31017"]
+  },
+  { 
+    code: "ADSP 32030", name: "Scalable Data Systems & AI Pipelines", semester: "Autumn Year 2", cat: "elective_ai",
+    desc: `This course equips students to design and implement scalable data architectures and AI-driven pipelines for modern analytical systems. Students work with distributed storage and computation frameworks (Hadoop, Spark) and advance to performance optimization, large-scale similarity search, and machine learning pipelines. Topics include horizontal scaling strategies, serverless infrastructure patterns, document and graph data modeling, workflow orchestration, and real-time messaging systems.
+Students implement vector search systems, construct semantic retrieval pipelines, and build Retrieval-Augmented Generation (RAG) applications. The course also introduces autonomous agent frameworks, including tool integration and planning methods for automated data tasks.
+The final project integrates distributed systems, search infrastructure, orchestration frameworks, and AI components into a unified, production-oriented pipeline.`,
+    outcomes: ["ZIZ"],
+    topics: ["GenAI"],
+    prereqs: ["ADSP 31011"]
   },
   { 
     code: "ADSP 34002", name: "Capstone I", semester: "Spring Year 1", cat: "capstone",
